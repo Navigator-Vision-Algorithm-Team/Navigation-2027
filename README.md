@@ -1,2 +1,6 @@
 # Navigation-2027
-这是2027的导航代码，需要搭配自瞄串口食用
+
+Navigation project for the 2027 season.
+
+This repository will be used for navigation vision algorithm development,
+experiments, and related documentation.
