@@ -1,0 +1,30 @@
+# Goal decision node configuration
+#
+# - goal_points: named points the FSM navigates to. Coordinates are explicit
+#   (map frame) so that changing the map only requires editing this file.
+# - decisions:   thresholds for the two simple decisions (see TODU.md §6).
+
+goal_points:
+  - name: home           # optional reference point
+    frame_id: map
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+
+  - name: spawn          # birth / healing point (return here when HP is low)
+    frame_id: map
+    x: 0.5
+    y: 0.0
+    yaw: 0.0
+
+  - name: center         # arena center (go here when the match starts)
+    frame_id: map
+    x: 3.5
+    y: 1.2
+    yaw: 1.57
+
+decisions:
+  # game_progress >= this value is treated as "match started"
+  game_start_progress_threshold: 4
+  # return to spawn when current_hp <= maximum_hp * hp_return_threshold / 100
+  hp_return_threshold: 30
