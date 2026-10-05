@@ -21,3 +21,5 @@ Makefile
 # Keep dona.pcd explicitly because it is required for this setup and is under GitHub's file limit.
 *.pcd
 !ros_ws/src/pb2025_sentry_nav/pb2025_nav_bringup/pcd/reality/dona.pcd
+
+.vscode
