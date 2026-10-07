@@ -18,6 +18,8 @@ find_package(ament_index_cpp REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(action_msgs REQUIRED)
+find_package(tf2_msgs REQUIRED)
 
 include_directories(include)
 
@@ -34,7 +36,9 @@ ament_target_dependencies(${PROJECT_NAME}
   ament_index_cpp
   yaml-cpp
   nav2_msgs
-  std_msgs)
+  std_msgs
+  action_msgs
+  tf2_msgs)
 
 rclcpp_components_register_node(${PROJECT_NAME}
   PLUGIN "pb_nav_goal_decision::GoalDecisionNode"

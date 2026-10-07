@@ -28,3 +28,43 @@ decisions:
   game_start_progress_threshold: 4
   # return to spawn when current_hp <= maximum_hp * hp_return_threshold / 100
   hp_return_threshold: 30
+
+# ---------------------------------------------------------------------------
+# safety: failure handling for a single navigation goal
+# ---------------------------------------------------------------------------
+safety:
+  # a goal still running after this many seconds is canceled and treated as a
+  # failure (=> counted against the retry budget below). Must be > 0: a value
+  # of 0 or less would cancel every goal immediately.
+  goal_timeout_sec: 60.0
+  # how many times one target point may be re-sent after failing (0 = never retry)
+  max_retries: 2
+  # wait this long before each retry
+  retry_delay_sec: 3.0
+
+# ---------------------------------------------------------------------------
+# arbitration: manual goal sources share the same navigate_to_pose action
+#   priority:  RViz manual goal  >  this decision node  >  joystick
+# While ANY other client's goal is active on the action we stand by, and we
+# resume automatically once the action has been quiet again.
+# ---------------------------------------------------------------------------
+arbitration:
+  enable: true
+  # how long the action must be free (no external goal) before we resume.
+  # Must be longer than the joystick's re-send period (~0.25 s) to avoid
+  # fighting over the action between two of its goals.
+  resume_delay_sec: 1.0
+  # if the action status topic goes silent for this long while an external goal
+  # was seen, assume that client is gone and resume anyway.
+  status_stale_sec: 3.0
+
+# ---------------------------------------------------------------------------
+# localization: don't send goals before relocalization has produced map -> odom
+# (otherwise Nav2 rejects/aborts them). The transform is sniffed from the
+# <namespace>/tf and <namespace>/tf_static topics, so this node must run in the
+# same namespace as the navigation stack.
+# ---------------------------------------------------------------------------
+localization:
+  check_ready: true
+  map_frame: map
+  odom_frame: odom

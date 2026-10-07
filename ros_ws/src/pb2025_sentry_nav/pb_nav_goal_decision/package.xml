@@ -16,6 +16,13 @@
   <depend>ament_index_cpp</depend>
   <depend>yaml-cpp</depend>
 
+  <!-- Arbitration: read the action's own status topic to detect goals sent by
+       other clients (RViz Nav2 Goal / joystick auto_control). -->
+  <depend>action_msgs</depend>
+
+  <!-- Localization readiness: `map -> odom` is watched on the tf topics. -->
+  <depend>tf2_msgs</depend>
+
   <!-- Nav2 action interface (navigate_to_pose) -->
   <depend>nav2_msgs</depend>
 
